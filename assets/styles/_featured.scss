@@ -1,0 +1,52 @@
+.featured {
+    position: relative;
+    z-index: 2;
+}
+.featured .icon-box {
+    padding: 40px 30px;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    background: #fff;
+    transition: all ease-in-out 0.3s;
+    height: 100%;
+}
+.featured .icon-box i {
+    color: #e71a33;
+    font-size: 42px;
+    margin-bottom: 15px;
+    display: block;
+    line-height: 0;
+}
+.featured .icon-box h3 {
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+.featured .icon-box h3 a {
+    color: #545454;
+    transition: 0.3s;
+}
+.featured .icon-box p {
+    color: #545454;
+    line-height: 24px;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+.featured .icon-box:hover {
+    background: #e71a33;
+}
+.featured .icon-box:hover i, .featured .icon-box:hover h3 a, .featured .icon-box:hover p {
+    color: #fff;
+}
+@media (max-width: 384px) {
+    h3, .h3 {
+        font-size: 1.25rem !important;
+        font-weight: bold;
+    }
+}
+@media (max-width: 320px) {
+    h3, .h3 {
+        font-size: 1.10rem !important;
+        font-weight: bold;
+    }
+}

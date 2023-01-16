@@ -1,0 +1,17 @@
+Merci d'avoir acheté récemment le fichier logo. Vous trouverez ci-dessous les courtes définitions de différents types et tailles de fichiers inclus dans votre package :
+
+.JPG Ces fichiers logo sont composés d'un fond blanc opaque derrière votre logo qui apparaît comme zone blanche autour de votre logo.
+
+.PNG Ces fichiers logo permettent la transparence, car ils ne contiennent pas de zone blanche/fond blanc. Vous devriez utiliser ces fichiers lorsque vous téléchargez votre logo sur un site Web ou le collez dans un fichier comprenant le fond d'une couleur ou d'un motif que vous souhaitez voir apparaître derrière le logo
+
+.EPS : (PostScript encapsulé) Ce fichier est à utiliser pour l'impression ou pour la conception. Ces fichiers vous ont été fournis en complément de votre image du logo, du logo lui-même et la police à travers les formes. Certains appareils mobiles et ordinateurs ne permettent pas de visualiser ces types de fichiers
+
+.SVG : (Graphiques de vecteurs gradués) Ces fichiers sont à utiliser pour l'impression et la conception. Ces fichiers sont les fichiers de conception d'origine qui incluent également les polices utilisées dans votre logo. Certains appareils mobiles et ordinateurs ne permettent pas de visualiser ces types de fichiers.
+
+.PDF : (Format de document portable) Ce fichier est utilisé afin de préserver la mise en page du format de votre logo sur tous  les ordinateurs et les appareils mobiles. Ils peuvent être reconnus parfois comme format acceptable destiné aux imprimantes.
+
+dpi: (Points par pouce) une mesure de la résolution utilisée pour des textes et des images imprimés, plus il y a de points par pouce, meilleure est la résolution.
+
+px: (Pixels) une zone minute d'illumination composant l'écran d'affichage, l'un d'un grand nombre d'entre eux qui constituent une image.
+
+

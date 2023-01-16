@@ -1,0 +1,45 @@
+<li><a href="{{ path('app_home') }}">Accueil</a></li>
+<li><a href="{{ path('app_home', {'_fragment': 'hero'}) }}">Services</a></li>
+<li><a href="{{ path('app_home', {'_fragment': 'pricing'}) }}">Solutions</a></li>
+<li><a href="">Articles</a></li>
+<li><a href="{{ path('app_home', {'_fragment': 'contact'}) }}">Contact</a></li>
+
+{% if is_granted("ROLE_USER") %}
+    <li class="dropdown"><a href="#"><img src="/images/no-avatar-350x350.jpg" class="avatar avatar-mini"> <i class="bi bi-chevron-down"></i></a>
+        <ul>
+            {% if is_granted("ROLE_ADMIN") %}
+            <li><a href="#">Dashboard</a></li>
+            <!--
+            <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                    <li><a href="#">Deep Drop Down 1</a></li>
+                    <li><a href="#">Deep Drop Down 2</a></li>
+                    <li><a href="#">Deep Drop Down 3</a></li>
+                    <li><a href="#">Deep Drop Down 4</a></li>
+                    <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+            </li>
+            -->
+            <li><a href="{{ path('app_admin_booking_calendar') }}">Planning</a></li>
+            <li><a href="{{ path('app_admin_booking_index') }}">Interventions</a></li>
+            <li><a href="{{ path('app_admin_users_index') }}">Clients</a></li>
+            <li><a href="{{ path('app_admin_blog_index') }}">Articles</a></li>
+            <li><a href="{{ path('app_admin_categories_blog_index') }}">Catégories</a></li>
+            <li><a href="{{ path('app_admin_comments_blog_index') }}">Commentaires</a></li>
+            <li><a href="{{ path('app_admin_factures_index') }}">Factures</a></li>
+            <li><a href="{{ path('app_admin_paiement_index') }}">paiements</a></li>
+            <li><a href="{{ path('app_logout') }}">Déconnection</a></li>
+            {% else %}
+            <li><a href="{{ path('app_booking_calendar') }}">Demande d'intervention</a></li>
+            <li><a href="{{ path('app_booking_index') }}">Interventions programmées</a></li>
+            <li><a href="{{ path('app_factures_index') }}">Mes factures</a></li>
+            <li><a href="{{ path('app_paiement_index') }}">Mes paiements</a></li>
+            <li><a href="{{ path('app_profil_edit') }}">Modifier mon profil</a></li>
+            <li><a href="{{ path('app_profil_update_password') }}">Mot de passe</a></li>
+            <li><a href="{{ path('app_logout') }}">Déconnection</a></li>
+            {% endif %}
+        </ul>
+    </li>
+    {% else %}
+    <li><a href="{{ path('app_login') }}" class=""><i class="fa-solid fa-power-off" style="font-size: 20px;"></i></a></li>   
+{% endif %}

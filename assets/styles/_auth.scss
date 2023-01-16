@@ -1,0 +1,36 @@
+.auth .info-box {
+    color: #444444;
+    box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);
+    padding: 20px 0 30px 0;
+  }
+ .text-decoration-lines {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+.text-decoration-lines__content {
+    position: relative;
+    display: inline-block;
+    min-width: 170px;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+.text-decoration-lines__content::before {
+    left: 0;
+    transform: translate(-100%, -50%);
+}
+.text-decoration-lines__content::after {
+    right: 0;
+    transform: translate(100%, -50%);
+}
+.text-decoration-lines__content::before, .text-decoration-lines__content::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    background: #f5f5f5;
+    top: 50%;
+    width: 100vw;
+}
+

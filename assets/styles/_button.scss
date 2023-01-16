@@ -1,0 +1,57 @@
+.btn {
+    background: #545454;
+    border: 0;
+    padding: 10px 24px;
+    border-radius: 5px;
+    color: #fff;
+    transition: 0.4s;
+
+    &:hover {
+        background: #e71a33;
+        color: #fff;
+    }
+}
+
+
+.btn-facebook {
+    background-color: #0d47a1;
+    color: #fff;
+    font-weight: bold;
+    padding: 20px;
+    margin-right: 5px;
+    text-align: center;
+    transition: .8s;
+  
+    &:hover {
+      background-color: #1565c0  !important;
+      color: #fff;
+    }
+    
+}
+  
+.btn-google {
+    background-color: #dd2c00;
+    color: #fff;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+    transition: .8s;
+    
+    &:hover {
+      background-color: #ff3d00  !important;
+      color: #fff;
+    }
+    
+}
+.fa-circle-check {
+    color: #2E7D32;
+    font-size: 24px;
+    font-weight: bold;
+}
+.fa-circle-exclamation {
+  color: #D50000;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+

@@ -1,0 +1,78 @@
+ <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+      <div class="section-title">
+        <h2>Nous contacter</h2>
+      </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="info-box mb-4">
+              <i class="bx bx-map"></i>
+              <h3>Nous trouver</h3>
+                <p>121 rue Maurice Burrus 68160 Ste Croix aux mines</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="info-box  mb-4">
+              <i class="bx bx-envelope"></i>
+              <h3>Email</h3>
+                        <p>contact@sos-home-pc.fr</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="info-box  mb-4">
+              <i class="bx bx-phone-call"></i>
+              <h3>Téléphone</h3>
+                        <p>07 54 27 07 77</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+
+        <div class="col-12">
+        {% for label, messages in app.flashes %}
+                            <div class="alert alert-{{ label }}">
+                                {% for message in messages %}
+                                    <i class="fa-solid fa-circle-info"></i> {{ message | raw }}    
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+        </div>
+
+          <div class="col-lg-6 ">
+            <iframe class="mb-lg-0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2656.3558052412536!2d7.212450215653211!3d48.25752697923316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4793e21c788997d7%3A0x86efd17f6c250444!2s121%20Rue%20Maurice%20Burrus%2C%2068160%20Sainte-Croix-aux-Mines!5e0!3m2!1sfr!2sfr!4v1636024869452!5m2!1sfr!2sfr" frameborder="0" style="border:0; width: 100%; height: 100%;" allowfullscreen></iframe>
+          </div>
+
+          <div class="col-lg-6">
+            {{ form_start(contactForm)}}
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  {{ form_widget(contactForm.nom) }}
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  {{ form_widget(contactForm.email) }}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                {{ form_widget(contactForm.sujet) }}
+              </div>
+              <div class="form-group mt-3">
+                {{ form_widget(contactForm.message) }}
+              </div>
+              <div class="my-3">
+                <div class="loading"></div>
+                <div class="error-message"></div>
+                <div class="sent-message"></div>
+              </div>
+              <div class="text-center"><button class="btn col-12">Envoyer le message</button></div>
+            {{ form_end(contactForm)}}
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->

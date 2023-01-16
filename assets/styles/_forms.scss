@@ -1,0 +1,44 @@
+.form-control {
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 14px;
+  padding: 10px 15px;
+
+  &:focus {
+    border-color: #e71a33;
+    box-shadow: 0 0 0 0.01rem #fff;
+  }
+}
+textarea.form-control {
+  padding: 12px 15px;
+}
+
+.form-select {
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 14px;
+  padding: 10px 15px;
+  box-shadow: none;
+
+  &:focus {
+    border-color: #e71a33;
+    box-shadow: 0 0 0 0.01rem #fff;
+  }
+}
+
+.form-check-input {
+  box-shadow: none;
+
+  &[type="checkbox"] {
+    box-shadow: 0 0 0 0.01rem #fff;
+  }
+
+  &:focus {
+    border-color: #e71a33;
+  }
+
+  &:checked {
+    background-color: #e71a33;
+    border-color: #e71a33;
+  }
+}
