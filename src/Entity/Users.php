@@ -106,9 +106,15 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $temoignages;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="client", orphanRemoval=true)
+     */
+    private $bookings;
+
     public function __construct()
     {
         $this->temoignages = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -363,6 +369,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($temoignage->getClient() === $this) {
                 $temoignage->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Booking>
+     */
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(Booking $booking): self
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings[] = $booking;
+            $booking->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(Booking $booking): self
+    {
+        if ($this->bookings->removeElement($booking)) {
+            // set the owning side to null (unless already changed)
+            if ($booking->getClient() === $this) {
+                $booking->setClient(null);
             }
         }
 

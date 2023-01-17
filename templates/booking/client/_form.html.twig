@@ -1,0 +1,7 @@
+{{ form_start(form, {'attr': {'id': 'booking'}}) }}
+    {{ form_widget(form.beginAt) }}
+    {{ form_widget(form.endAt) }}
+    {{ form_widget(form.title) }}
+    {{ form_widget(form.description) }}
+    <button id="create-booking" class="btn col-12">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}
