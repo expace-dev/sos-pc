@@ -8,7 +8,7 @@
     <li class="dropdown"><a href="#"><img src="/images/no-avatar-350x350.jpg" class="avatar avatar-mini"> <i class="bi bi-chevron-down"></i></a>
         <ul>
             {% if is_granted("ROLE_ADMIN") %}
-            <li><a href="#">Dashboard</a></li>
+            
             <!--
             <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
@@ -20,6 +20,7 @@
                 </ul>
             </li>
             -->
+            <li><a href="{{ path('app_admin_dashboard_index') }}">Dashboard</a></li>
             <li><a href="{{ path('app_admin_booking_calendar') }}">Planning</a></li>
             <li><a href="{{ path('app_admin_booking_index') }}">Interventions</a></li>
             <li><a href="{{ path('app_admin_users_index') }}">Clients</a></li>
@@ -27,7 +28,7 @@
             <li><a href="{{ path('app_admin_categories_blog_index') }}">Catégories</a></li>
             <li><a href="{{ path('app_admin_comments_blog_index') }}">Commentaires</a></li>
             <li><a href="{{ path('app_admin_factures_index') }}">Factures</a></li>
-            <li><a href="{{ path('app_admin_paiement_index') }}">paiements</a></li>
+            <li><a href="{{ path('app_logout') }}">paiements</a></li>
             <li><a href="{{ path('app_logout') }}">Déconnection</a></li>
             {% else %}
             <li><a href="{{ path('app_logout') }}">Déconnection</a></li>

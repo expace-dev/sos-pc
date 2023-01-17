@@ -1,0 +1,23 @@
+{% use "bootstrap_5_layout.html.twig" %}
+
+
+{% block datetime_widget -%}
+    {%- if widget == 'single_text' -%}
+        {{- block('form_widget_simple') -}}
+    {%- else -%}
+        {% if not valid %}
+            {% set attr = attr|merge({class: (attr.class|default('') ~ ' is-invalid')|trim}) -%}
+            {% set valid = true %}
+        {% endif %}
+        <div {{ block('widget_container_attributes') }}>
+            <div class="mb-3">
+            {{- form_widget(form.date, { datetime: true } ) -}}
+            {{- form_errors(form.date) -}}
+            </div>
+            <div class="mb-3">
+            {{- form_widget(form.time, { datetime: true } ) -}}
+            {{- form_errors(form.time) -}}
+            </div>
+        </div>
+    {%- endif -%}
+{%- endblock datetime_widget %}

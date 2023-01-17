@@ -39,6 +39,14 @@ class FacturesRepository extends ServiceEntityRepository
         }
     }
 
+    public function nbreFact() {
+  
+        return $this->createQueryBuilder('i')
+                    ->select('COUNT(i)')
+                    ->getQuery()
+                    ->getSingleScalarResult(); 
+    }
+
 //    /**
 //     * @return Factures[] Returns an array of Factures objects
 //     */

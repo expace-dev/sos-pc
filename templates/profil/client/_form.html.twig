@@ -1,0 +1,50 @@
+{{ form_start(form) }}
+
+    <div class="row">
+
+        
+        <div class="col-lg-6">
+            {{ form_widget(form.nom) }}
+        </div>
+        <div class="col-lg-6">
+            {{ form_widget(form.prenom) }}
+        </div>
+
+        <div class="col-lg-12 mt-4">
+            {{ form_widget(form.adresse) }}
+        </div>
+
+        {{ form_widget(form.codePostal) }}
+        {{ form_widget(form.ville) }}
+        {{ form_widget(form.pays) }}
+
+        <div class="col-lg-12 mt-4">
+            {{ form_widget(form.societe) }}
+        </div>
+
+        <div class="col-lg-6 mt-4">
+            {{ form_widget(form.email) }}
+        </div>
+        <div class="col-lg-6 mt-4">
+            {{ form_widget(form.telephone) }}
+        </div>
+
+        <div class="col-lg-12 mt-4">
+        {{ form_widget(form.avatar) }}
+        </div>
+
+    </div>
+    
+    <button class="btn mt-4 col-lg-12">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+
+<script>
+var placesAutocomplete = places({
+    appId: "pl5E0AERLP0E",
+    apiKey: "ec874759e7f8ed96f0c8747a7ff29131",
+    container: document.querySelector('#profil_adresse'),
+    type: 'address'
+  });
+
+</script>

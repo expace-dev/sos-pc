@@ -63,6 +63,16 @@ class Factures
      */
     private $slug;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Paiements::class, mappedBy="facture", cascade={"persist", "remove"})
+     */
+    private $paiements;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $paiementIntent;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -172,6 +182,35 @@ class Factures
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getPaiements(): ?Paiements
+    {
+        return $this->paiements;
+    }
+
+    public function setPaiements(Paiements $paiements): self
+    {
+        // set the owning side of the relation if necessary
+        if ($paiements->getFacture() !== $this) {
+            $paiements->setFacture($this);
+        }
+
+        $this->paiements = $paiements;
+
+        return $this;
+    }
+
+    public function getPaiementIntent(): ?string
+    {
+        return $this->paiementIntent;
+    }
+
+    public function setPaiementIntent(?string $paiementIntent): self
+    {
+        $this->paiementIntent = $paiementIntent;
 
         return $this;
     }

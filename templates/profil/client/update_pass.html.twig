@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Users{% endblock %}
+
+{% block body %}
+<section class="breadcrumbs-custom">
+        <div class="breadcrumbs-custom__aside bg-image context-dark" style="background-image: url(/images/bg-image-1-1920x238.jpg);">
+            <div class="container">
+                <h2 class="breadcrumbs-custom__title">{{ block('title') }}</h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="auth">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="info-box mb-4">
+                        <div class="container mt-3">
+                            <h3 class="mb-4">Modifier mon profil</h3>
+                            {% for label, messages in app.flashes %}
+                                <div class="alert alert-{{ label }}">
+                                    {% for message in messages %}
+                                        <i class="fa-solid fa-circle-info"></i> {{ message | raw }}    
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            <button type="submit" class="btn col-12 mb-3">{{ button_label|default('Modifier le mot de passe') }}</button>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}

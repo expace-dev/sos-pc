@@ -1,0 +1,38 @@
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col-6 mb-3">
+            {{ form_label(form.nom) }}
+            {{ form_widget(form.nom) }}
+        </div>
+        <div class="col-6 mb-3">
+            {{ form_label(form.prenom) }}
+            {{ form_widget(form.prenom) }}
+        </div>
+        <div class="col-12 mb-3">
+            {{ form_label(form.adresse) }}
+            {{ form_widget(form.adresse) }}
+        </div>
+        <div class="col-12 mb-3">
+            {{ form_label(form.societe) }}
+            {{ form_widget(form.societe) }}
+        </div>
+        <div class="col-6 mb-3">
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email) }}
+        </div>
+        <div class="col-6 mb-3">
+            {{ form_label(form.telephone) }}
+            {{ form_widget(form.telephone) }}
+        </div>
+        <div class="col-12 mb-3">
+            {{ form_widget(form.avatar) }}
+       </div>
+        <div class="col-12 mb-3">
+            {{ form_label(form.isVerified) }}
+            {{ form_widget(form.isVerified) }}
+        </div>
+    </div>
+    
+    <button class="btn col-12">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+

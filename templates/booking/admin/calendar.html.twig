@@ -1,0 +1,215 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<div class="container mt-5">
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <i class="fa-solid fa-circle-info"></i> {{ message | raw }}    
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+    
+
+<!-- Modal -->
+<div class="modal fade modal-lg" id="create" tabindex="-1" aria-labelledby="createLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createlLabel">Demander une intervention</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ include('booking/admin/_form.html.twig') }}
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div id="calendar-holder" class="container mt-3 mb-5" style="height: 0 auto"></div>
+    
+
+{% endblock %}
+
+
+{% block javascripts %}
+{{ encore_entry_script_tags('app') }}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/moment@2.27.0/min/moment.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/moment-timezone@0.5.40/builds/moment-timezone-with-data.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.1/index.global.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/moment@6.0.1/index.global.min.js'></script>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+
+
+            var calendarEl = document.getElementById('calendar-holder');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                timeZone: 'Europe/Moscow',
+                eventSources: [
+                    {
+                        url: "{{ path('fc_load_events') }}",
+                        method: "POST",
+                        extraParams: {
+                            filters: JSON.stringify({})
+                        },
+                        failure: () => {
+                            // alert("There was an error while fetching FullCalendar!");
+                        },
+                    },
+                ],
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'timeGridWeek,timeGridDay'
+                },
+                allDaySlot: false,
+                
+                businessHours: {
+                    
+                    // days of week. an array of zero-based day of week integers (0=Sunday)
+                    daysOfWeek: [ 1, 2, 3, 4, 5, 6 ], // Monday - Thursday
+
+                    startTime: '08:00', // a start time (10am in this example)
+                    endTime: '21:00', // an end time (6pm in this example)
+                },
+                initialView: 'timeGridWeek',
+                locale: 'fr',
+                buttonText: {
+                    today: 'Aujourd\'hui',
+                    week: 'Semaine',
+                    day: 'Journée'
+                },
+                hiddenDays: [ 0 ],
+                slotMinTime: '05:00:00', 
+                slotMaxTime: '23:00:00',
+                themeSystem: 'bootstrap5',
+                editable: true,
+                selectable: true,
+                selectMirror: true,
+                select: function(arg) {
+
+                    
+
+                    // Ont récupère les input start et end
+                    let inputStart = document.getElementById('booking_beginAt');
+                    let inputEnd = document.getElementById('booking_endAt');
+                    
+                    // Fonction permettant de rajouter des heures à une date
+                    function addHours(numOfHours, date = new Date()) {
+                        date.setTime(date.getTime() + numOfHours * 60 * 60 * 1000);
+                        return date;
+                    }
+
+                    const result = addHours(1);
+                    const date = new Date(arg.start);
+
+                    let startDate = arg.start;
+                    let endDate = addHours(4, date);
+
+                    // Ont rempli les input start et end
+                    inputStart.setAttribute("value", startDate);
+                    inputEnd.setAttribute("value", endDate);
+
+                    
+                    
+                    // Ont affiche le formulaire de création de RDV
+                    var myModal = new bootstrap.Modal(document.getElementById('create'));
+                    myModal.show();
+                    
+
+                    // Ont envoie le nouveau RDV en ajax
+                    var btnSave = document.querySelector('#create-booking');
+                    var btnClose = document.querySelector('.btn-close');
+
+                    btnClose.addEventListener("click", (e) => {
+
+                        location.reload();
+
+                    })
+
+                    btnSave.addEventListener("click", (e) => {
+
+
+                            e.preventDefault();
+
+                            var title = document.getElementById("booking_title").value;
+                            var description = document.getElementById("booking_description").value;
+                            var user = document.getElementById("booking_client").value;
+
+                            axios.put('/admin/booking/new', {
+                                params: {
+                                start: startDate,
+                                end: endDate,
+                                title: title,
+                                description: description,
+                                user: user
+
+                                }
+                            })
+                            .then(function (response) {
+                                window.location.href = "/admin/booking/new/confirmation";
+                            })
+                            .catch(function (error) {
+
+                                var code = error['request']['status'];
+
+                                if(code == 403) {
+
+                                    window.location.href = "/admin/booking/new/erreur/fermeture";
+                                }
+                                else {
+                                    window.location.href = "/admin/booking/new/erreur";
+                                }
+
+                                //
+
+                            })
+                            .then(function () {
+                            }); 
+                             
+                        })
+                },
+
+                eventChange: function(arg) {
+
+
+
+                    let url = `/admin/booking/${arg.event.id}/edit`
+                    
+                    axios.put(url, {
+                        params: {
+                            start: arg.event.start,
+                            end: arg.event.end,
+                        }
+                    }).then(function (response) {
+
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            text: 'Rendez-vous modifié avec succès',
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                    }).catch(function (error) {
+
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            text: 'Une erreur est survenue',
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                    });
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+    
+{% endblock %}
