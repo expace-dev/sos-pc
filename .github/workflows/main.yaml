@@ -21,6 +21,8 @@ jobs:
         run: 
           sshpass -e ssh -o stricthostkeychecking=no ${{ secrets.APP_USER }}@${{ secrets.APP_HOST }}
           "cd web/sos-pc/ &&
+          git checkout . &&
           git pull &&
           composer install &&
+          npm install &&
           php bin/console d:m:m -n"
