@@ -10,6 +10,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ArticlesRepository::class)
+ * @ORM\Table(name="articles", indexes={@ORM\Index(columns={"titre", "contenu"}, flags={"fulltext"})})
+ * 
  * @ORM\HasLifecycleCallbacks
  */
 class Articles

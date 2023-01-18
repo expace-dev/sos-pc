@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+    <section class="breadcrumbs-custom">
+        <div class="breadcrumbs-custom__aside bg-image context-dark" style="background-image: url(/images/bg-image-1-1920x238.jpg);">
+            <div class="container">
+                <h2 class="breadcrumbs-custom__title">{{ block('title') }}</h2>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="blog">
+        <div class="container" data-aos="fade-up">
+            <div class="row">
+                <div class="col-lg-12">
+                {% for label, messages in app.flashes %}
+                    <div class="alert alert-{{ label }}">
+                        {% for message in messages %}
+                            <i class="fa-solid fa-circle-info"></i> {{ message | raw }}    
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                </div>
+                <div class="col-lg-8 entries">
+                    {% for article in articles.data %}
+                    <article class="entry">
+                        <div class="entry-img">
+                            <img src="{{ article.image }}" alt="" class="img-fluid">
+                        </div>
+                        <h2 class="entry-title">
+                            <a href="blog-single.html">{{ article.titre }}</a>
+                        </h2>
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="{{ path('app_blog_show', {'slug': article.slug}) }}">{{ article.auteur.username }}</a></li>
+                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="{{ path('app_blog_show', {'slug': article.slug}) }}"><time datetime="2020-01-01">{{ article.date|date("j F Y") }}</time></a></li>
+                                <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="{{ path('app_blog_show', {'slug': article.slug}) }}">{{ article.commentaires|length }} Comments</a></li>
+                            </ul>
+                        </div>
+                        <div class="entry-content">
+                            <p>{{ article.contenu }}</p>
+                            <div class="read-more">
+                                <a href="{{ path('app_blog_show', {'slug': article.slug}) }}">Lire la suite</a>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                    {% set pages = articles.pages %}
+                    {% set currentPage = articles.page %}
+                    {% if pages > 1 %}
+                    <div class="blog-pagination mb-5">
+                        <ul class="justify-content-center">
+                            {% if currentPage > 1 %}
+                            <li><a href="{{ path('app_blog_index', {page: currentPage - 1}) }}">&laquo;</a></li>
+                            {% else %}
+                            <li><a href="{{ path('app_blog_index', {page: currentPage}) }}">&laquo;</a></li>
+                            {% endif %}
+
+                            
+                            {% set pageSupp = currentPage +4 %}
+
+                            {% if pages > 5 and currentPage < pages %}
+                            {% for page in currentPage..pageSupp %}
+                            {% if page <= pages %}
+                            <li class="{{ (page == currentPage) ? 'active' : '' }}">
+                                <a href="{{ path('app_blog_index', {page: page }) }}">{{ page }}</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                            {% else %}
+                            <li class="active">
+                                <a href="{{ path('app_blog_index', {page: pages }) }}">{{ pages  }}</a>
+                            </li>
+                            {% endif %}
+                            
+                            
+                            
+
+
+                            {% if currentPage < pages %}
+                            <li><a href="{{ path('app_blog_index', {page: currentPage + 1}) }}">&raquo;</a></li>
+                            {% else %}
+                            <li><a href="{{ path('app_blog_index', {page: currentPage}) }}">&raquo;</a></li>    
+                            {% endif %}
+                            
+                        </ul>
+                    </div>
+                    {% endif %}
+                    
+                    
+                </div>
+
+                {% include "blog/client/menu.html.twig" %}
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

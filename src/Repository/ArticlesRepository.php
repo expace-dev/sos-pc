@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Articles;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Articles>
@@ -37,6 +38,73 @@ class ArticlesRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function cherche($mots, $page, $limit = 6) {
+
+        $limit = abs($limit);
+
+        $result = [];
+
+
+        $query = $this->createQueryBuilder('a');
+        //$query->where('a.active = 1');
+        if($mots != null) {
+            $query->where('MATCH_AGAINST(a.title, a.content) AGAINST(:mots boolean)>0')
+                  ->setParameter('mots', $mots)
+                  ->setMaxResults($limit)
+                  ->setFirstResult(($page * $limit) - $limit);
+
+            $paginator = new Paginator($query);
+            $data = $paginator->getQuery()->getResult();
+
+            if (empty($data)) {
+                return $result;
+            }
+    
+            $pages = ceil($paginator->count() / $limit);
+    
+            $result['data'] = $data;
+            $result['pages'] = $pages;
+            $result['page'] = $page;
+            $result['limit'] = $limit;
+            //dd($data);
+    
+            return $result;
+        }
+        
+        //return $query->getQuery()->getResult();
+    }
+
+    public function findArticles($page, $limit = 6) {
+        $limit = abs($limit);
+
+        $result = [];
+
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('a')
+            ->from('App\Entity\Articles', 'a')
+            ->setMaxResults($limit)
+            ->setFirstResult(($page * $limit) - $limit);
+
+        $paginator = new Paginator($query);
+        $data = $paginator->getQuery()->getResult();
+        
+        
+        if (empty($data)) {
+            return $result;
+        }
+
+        $pages = ceil($paginator->count() / $limit);
+
+        $result['data'] = $data;
+        $result['pages'] = $pages;
+        $result['page'] = $page;
+        $result['limit'] = $limit;
+        //dd($data);
+
+        return $result;
+
     }
 
 //    /**

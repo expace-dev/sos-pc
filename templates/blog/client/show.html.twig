@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+    <section class="breadcrumbs-custom">
+        <div class="breadcrumbs-custom__aside bg-image context-dark" style="background-image: url(/images/bg-image-1-1920x238.jpg);">
+            <div class="container">
+                <h2 class="breadcrumbs-custom__title">{{ block('title') }}</h2>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="blog">
+        <div class="container" data-aos="fade-up">
+            <div class="row">
+                <div class="col-lg-8 entries">
+                    <article class="entry entry-single">
+                        <div class="entry-img">
+                            <img src="{{ article.image }}" alt="" class="img-fluid">
+                        </div>
+                        <h2 class="entry-title">
+                            <a href="blog-single.html">{{ article.titre }}</a>
+                        </h2>
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">{{ article.auteur.username }}</a></li>
+                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="{{ article.date|date("Y-m-d") }}">{{ article.date|date("j F Y") }}</time></a></li>
+                                <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">{{ article.commentaires|length }} Comments</a></li>
+                            </ul>
+                        </div>
+                        <div class="entry-content">
+                            <p>{{ article.contenu|raw }}</p>
+                        </div>
+                    </article>
+                    <div class="blog-author d-flex align-items-center">
+                        <img src="/images/blog/blog-author.jpg" class="rounded-circle float-left" alt="">
+                        <div>
+                            <h4>Jane Smith</h4>
+                            <div class="social-links">
+                                <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
+                                <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
+                                <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+                            </div>
+                            <p>
+                            Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas. Esse et accusantium ut unde voluptas.
+                            </p>
+                        </div>
+                    </div>
+                    {% include "blog/client/commentaires.html.twig" %}
+                </div>
+                {% include "blog/client/menu.html.twig" %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

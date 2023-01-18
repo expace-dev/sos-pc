@@ -4,6 +4,8 @@ namespace App\Controller\Client;
 
 use App\Services\UploadService;
 use App\Repository\UsersRepository;
+use App\Form\Users\Client\ProfilType;
+use App\Form\Users\Client\ChangePasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -84,7 +86,7 @@ class ProfilController extends AbstractController
             return $this->redirectToRoute('app_profil_edit', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('profil/client/edit.html.twig', [
+        return $this->renderForm('profil/client/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
@@ -127,7 +129,7 @@ class ProfilController extends AbstractController
                     
 
                     $user->setPassword($passwordEncoded);
-                    $usersRepository->save($user, true);
+                    $usersRepository->add($user, true);
                         $this->addFlash(
                         'success',
                         "Votre mot de passe a bien été modifié<br>Vous devez vous reconnecter !"

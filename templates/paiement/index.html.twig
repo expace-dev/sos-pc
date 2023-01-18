@@ -1,20 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PaiementController!{% endblock %}
+{% block title %}Paiements{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <section class="breadcrumbs-custom">
+        <div class="breadcrumbs-custom__aside bg-image context-dark" style="background-image: url(/images/bg-image-1-1920x238.jpg);">
+            <div class="container">
+                <h2 class="breadcrumbs-custom__title">{{ block('title') }}</h2>
+            </div>
+        </div>
+    </section>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <section class="auth">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="info-box mb-4">
+                        <div class="container mt-3">
+                            {% for label, messages in app.flashes %}
+                                <div class="alert alert-{{ label }}">
+                                    {% for message in messages %}
+                                        <i class="fa-solid fa-circle-info"></i> {{ message | raw }}    
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Facture N°</th>
+                                        <th>Montant</th>
+                                        <th>Date</th>
+                                        <th>actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for paiement in paiements %}
+                                    <tr class="align-middle">
+                                        <td>{{ paiement.facture.slug }}</td>
+                                        <td>{{ paiement.montant }} €</td>
+                                        <td>{{ paiement.date ? paiement.date|date('j F Y') : '' }}</td>
+                                        <td>
+                                        
+                                            {% if is_granted("ROLE_ADMIN") %}
+                                                <a class="btn" target="_blank" href="{{ path('app_admin_factures_show', {'slug': paiement.facture.slug}) }}"><i class="fas fa-eye"></i></a>
+                                            {% else %}
+                                                <a class="btn" target="_blank" href="{{ path('app_factures_show', {'slug': paiement.facture.slug}) }}"><i class="fas fa-eye"></i></a>
+                                            {% endif %}
+                                            
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Expace_Development/Mes_projets/sospc/src/Controller/PaiementController.php'|file_link(0) }}">src/Controller/PaiementController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Expace_Development/Mes_projets/sospc/templates/paiement/index.html.twig'|file_link(0) }}">templates/paiement/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <script>
+        $(document).ready( function () {
+
+            $('.table').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.1/i18n/fr-FR.json"
+                }
+            });
+
+
+        });
+    </script>
 {% endblock %}

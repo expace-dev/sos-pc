@@ -1,0 +1,53 @@
+                <div class="col-lg-4">
+                    <div class="sidebar">
+                        <h3 class="sidebar-title">Rechercher</h3>
+                        <div class="sidebar-item search-form">
+                            {{ form_start(formCherche, {'method': 'GET'}) }}
+                                <!--
+                                <input type="text" class="form-control">
+                                
+                                -->
+                                {{ form_widget(formCherche.mots) }}
+                                <button type="submit"><i class="bi bi-search"></i></button>
+                            {{ form_end(formCherche)}}
+                        </div>
+
+                        <h3 class="sidebar-title">Categories</h3>
+                        <div class="sidebar-item categories">
+                            <ul>
+                            {% for categorie in categories %}
+                                <li><a href="{{ path('app_blog_categories', {'slug': categorie.slug}) }}">{{ categorie.nom }} <span>({{ categorie.articles|length }})</span></a></li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                        <h3 class="sidebar-title">Recent Posts</h3>
+                        <div class="sidebar-item recent-posts">
+                            {% for derniersArticle in derniersArticles %}
+                                <div class="post-item clearfix">
+                                    <img src="{{ derniersArticle.image }}" alt="">
+                                    <h4><a href="{{ path('app_blog_show', {'slug': derniersArticle.slug}) }}">{{ derniersArticle.titre }}</a></h4>
+                                    <time datetime="{{ derniersArticle.date|date("Y-m-d") }}">{{ derniersArticle.date|date("j F Y") }}</time>
+                                </div>
+                            {% endfor %}
+                            
+                            
+                            
+                        </div>
+                        <h3 class="sidebar-title">Tags</h3>
+                        <div class="sidebar-item tags">
+                            <ul>
+                                <li><a href="#">App</a></li>
+                                <li><a href="#">IT</a></li>
+                                <li><a href="#">Business</a></li>
+                                <li><a href="#">Mac</a></li>
+                                <li><a href="#">Design</a></li>
+                                <li><a href="#">Office</a></li>
+                                <li><a href="#">Creative</a></li>
+                                <li><a href="#">Studio</a></li>
+                                <li><a href="#">Smart</a></li>
+                                <li><a href="#">Tips</a></li>
+                                <li><a href="#">Marketing</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>

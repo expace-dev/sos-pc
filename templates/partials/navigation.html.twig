@@ -31,6 +31,12 @@
             <li><a href="{{ path('app_logout') }}">paiements</a></li>
             <li><a href="{{ path('app_logout') }}">Déconnection</a></li>
             {% else %}
+            <li><a href="{{ path('app_booking_calendar') }}">Demande d'intervention</a></li>
+            <li><a href="{{ path('app_booking_index') }}">Interventions programmées</a></li>
+            <li><a href="{{ path('app_factures_index') }}">Mes factures</a></li>
+            <li><a href="{{ path('app_paiement_index') }}">Mes paiements</a></li>
+            <li><a href="{{ path('app_profil_edit') }}">Modifier mon profil</a></li>
+            <li><a href="{{ path('app_profil_update_password') }}">Mot de passe</a></li>
             <li><a href="{{ path('app_logout') }}">Déconnection</a></li>
             {% endif %}
         </ul>
